@@ -88,11 +88,15 @@ import Empty from '../packages/empty/index.js';
 import Descriptions from '../packages/descriptions/index.js';
 import DescriptionsItem from '../packages/descriptions-item/index.js';
 import Result from '../packages/result/index.js';
+import Login from '../packages/login/index.js';
 import locale from 'spark-ui/src/locale';
 import CollapseTransition from 'spark-ui/src/transitions/collapse-transition';
 
+import { generateId, isEmpty } from 'utils/util';
+
 const components = [
   Pagination,
+  Login,
   Dialog,
   Autocomplete,
   Dropdown,
@@ -178,12 +182,21 @@ const components = [
   CollapseTransition
 ];
 
+let prototypes = {
+  generateId,
+  isEmpty
+};
+
 const install = function(Vue, opts = {}) {
   locale.use(opts.locale);
   locale.i18n(opts.i18n);
 
   components.forEach(component => {
     Vue.component(component.name, component);
+  });
+
+  Object.keys(prototypes).forEach((key) => {
+    Vue.prototype[key] = prototypes[key];
   });
 
   Vue.use(InfiniteScroll);
