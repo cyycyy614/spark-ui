@@ -1,5 +1,5 @@
 <template>
-  <div :class="b()" :style="{width:setPx(width)}">
+  <div :style="{width:setPx(width)}">
     <el-form :model="form" ref="form" label-suffix=":" :label-width="setPx(labelWidth)">
       <el-form-item :label="username.label || '用户名'" :rules="username.rules" :label-width="setPx(username.labelWidth)" v-if="!username.hide" prop="username">
         <el-tooltip :content="username.tip" :disabled="username.tip===undefined" placement="top-start">
@@ -18,7 +18,7 @@
           <el-input v-model="form.code" size="small" :prefix-icon="code.prefixIcon || 'el-icon-c-scale-to-original'" :placeholder="code.placeholder || '请输入验证码'" :autocomplete="code.autocomplete">
 
             <template slot="append">
-              <el-button type="primary" :class="b('send')" v-if="isPhone" :disabled="sendDisabled" @click="onSend">{{text}}</el-button>
+              <el-button type="primary" v-if="isPhone" :disabled="sendDisabled" @click="onSend">{{text}}</el-button>
               <span v-if="isImg">
                 <img :src="codesrc" alt="" @click="onRefresh" width="80" height="25">
               </span>
@@ -27,7 +27,7 @@
         </el-tooltip>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit" :class="b('submit')">登录</el-button>
+        <el-button type="primary" @click="onSubmit">登录</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -36,13 +36,13 @@
 <script>
 const INIT_TEXT = '发送验证码';
 const TIP_TEXT = '{{time}}s后重获取';
-import create from 'core/create';
+
 import ElForm from 'spark-ui/packages/form';
 import ElFormItem from 'spark-ui/packages/form-item';
 import ElButton from 'spark-ui/packages/button';
 import ElInput from 'spark-ui/packages/input';
 import ElTooltip from 'spark-ui/packages/tooltip';
-export default create({
+export default {
   name: 'login',
   props: {
     value: {
@@ -133,6 +133,9 @@ export default create({
     };
   },
   methods: {
+    setPx(x) {
+      return x + 'px';
+    },
     onSend() {
       const callback = () => {
         this.nowtime = this.time;
@@ -173,5 +176,5 @@ export default create({
       });
     }
   }
-});
+};
 </script>

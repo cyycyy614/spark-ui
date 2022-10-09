@@ -88,15 +88,13 @@ import Empty from '../packages/empty/index.js';
 import Descriptions from '../packages/descriptions/index.js';
 import DescriptionsItem from '../packages/descriptions-item/index.js';
 import Result from '../packages/result/index.js';
-import Login from '../packages/login/index.js';
 import locale from 'spark-ui/src/locale';
 import CollapseTransition from 'spark-ui/src/transitions/collapse-transition';
-
-import { generateId, isEmpty } from 'utils/util';
+import Login from 'spark-ui/packages/login';
+import { isEmpty, generateId} from 'spark-ui/src/utils/util';
 
 const components = [
   Pagination,
-  Login,
   Dialog,
   Autocomplete,
   Dropdown,
@@ -179,12 +177,13 @@ const components = [
   Descriptions,
   DescriptionsItem,
   Result,
+  Login,
   CollapseTransition
 ];
 
 let prototypes = {
-  generateId,
-  isEmpty
+  isEmpty,
+  generateId
 };
 
 const install = function(Vue, opts = {}) {
